@@ -1,8 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
 <h1>Skin Vault</h1>
 
 <h5>NPM: </h5>
-<p>2306152430</p>
-<h5>Name: </h5>
-<p>Malvin Scafi</p>
-<h5>Class: </h5>
-<p>PBP F</p>
+<p>{{ npm }}<p>
+
+<h5>Name:</h5>
+<p>{{ name }}</p>
+
+<h5>Class:</h5>
+<p>{{ class }}</p>
+
+
+{% if not product_entries %}
+<p>Belum ada data produk pada Skin Vault.</p>
+{% else %}
+<table>
+  <tr>
+    <th>Skin Name</th>
+    <th>Weapon</th>
+    <th>Exterior</th>
+    <th>Category</th>
+    <th>Quality</th>
+    <th>Price</th>
+    <th>Description</th>
+    <th>Quantity</th>
+  </tr>
+
+  {% comment %} Berikut cara memperlihatkan data product di bawah baris ini 
+  {% endcomment %} 
+  {% for product_entry in product_entries %}
+  <tr>
+    <td>{{product_entry.name}}</td>
+    <td>{{product_entry.weapon}}</td>
+    <td>{{product_entry.exterior}}</td>
+    <td>{{product_entry.category}}</td>
+    <td>{{product_entry.quality}}</td>
+    <td>{{product_entry.price}}</td>
+    <td>{{product_entry.description}}</td>
+    <td>{{product_entry.quantity}}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+<br />
+
+<a href="{% url 'main:create_product_entry' %}">
+  <button>Add New Product Entry</button>
+</a>
+{% endblock content %}
