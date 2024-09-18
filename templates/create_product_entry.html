@@ -1,18 +1,105 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block content %}
-<h1>Add New Product Entry</h1>
+<div class="min-h-screen flex items-center justify-center bg-gray-900 pt-20">
+  <div class="w-full max-w-2xl bg-gray-800 rounded-lg shadow-lg p-10">
+    <h1 class="text-3xl font-extrabold text-center text-yellow-400 mb-8">
+      Add New Product
+    </h1>
 
-<form method="POST">
-  {% csrf_token %}
-  <table>
-    {{ form.as_table }}
-    <tr>
-      <td></td>
-      <td>
-        <input type="submit" value="Add Product Entry" />
-      </td>
-    </tr>
-  </table>
-</form>
+    <form method="POST" class="space-y-6">
+      {% csrf_token %}
 
+      <div class="grid grid-cols-1 gap-6">
+        <!-- Name -->
+        <div class="flex items-center justify-between">
+          <label for="name" class="text-white text-lg font-semibold w-1/4 text-left">
+            Name
+          </label>
+          <div class="w-3/4 text-black">
+            {{ form.name }}
+          </div>
+        </div>
+
+        <!-- Weapon -->
+        <div class="flex items-center justify-between">
+          <label for="weapon" class="text-white text-lg font-semibold w-1/4 text-left">
+            Weapon
+          </label>
+          <div class="w-3/4 text-black">
+            {{ form.weapon }}
+          </div>
+        </div>
+
+        <!-- Exterior -->
+        <div class="flex items-center justify-between">
+          <label for="exterior" class="text-white text-lg font-semibold w-1/4 text-left">
+            Exterior
+          </label>
+          <div class="w-3/4 text-black">
+            {{ form.exterior }}
+          </div>
+        </div>
+
+        <!-- Category -->
+        <div class="flex items-center justify-between">
+          <label for="category" class="text-white text-lg font-semibold w-1/4 text-left">
+            Category
+          </label>
+          <div class="w-3/4 text-black">
+            {{ form.category }}
+          </div>
+        </div>
+
+        <!-- Quality -->
+        <div class="flex items-center justify-between">
+          <label for="quality" class="text-white text-lg font-semibold w-1/4 text-left">
+            Quality
+          </label>
+          <div class="w-3/4 text-black">
+            {{ form.quality }}
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="flex items-center justify-between">
+          <label for="description" class="text-white text-lg font-semibold w-1/4 text-left">
+            Description
+          </label>
+          <div class="w-3/4 text-black">
+            {{ form.description }}
+          </div>
+        </div>
+
+        <!-- Quantity -->
+        <div class="flex items-center justify-between">
+          <label for="quantity" class="text-white text-lg font-semibold w-1/4 text-left">
+            Quantity
+          </label>
+          <div class="w-3/4 text-black">
+            {{ form.quantity }}
+          </div>
+        </div>
+      </div>
+
+        <!-- Price -->
+        <div class="flex items-center justify-between">
+          <label for="price" class="text-white text-lg font-semibold w-1/4 text-left">
+            Price
+          </label>
+          <div class="w-3/4 text-black">
+            {{ form.price }}
+          </div>
+        </div>
+
+      <div class="mt-8">
+        <button 
+          type="submit" 
+          class="w-full py-3 px-6 bg-yellow-500 text-gray-900 font-semibold rounded-md shadow-md hover:bg-yellow-600 transition ease-in-out duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50"
+        >
+          Add Product Entry
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

@@ -1,52 +1,74 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Skin Vault</h1>
+<div class="bg-gray-900 min-h-screen py-8 pt-20"> <!-- Adjust padding here -->
+  <div class="container mx-auto px-6">
+    <!-- Heading Section -->
+    <h1 class="text-5xl font-extrabold text-yellow-400 mb-8 text-center">
+      <span class="border-yellow-500 pb-2">Skin Vault</span>
+    </h1>
 
-<h5>NPM: </h5>
-<p>{{ npm }}<p>
+    <!-- NPM, Name, Class Section -->
+    <div class="bg-gray-800 p-8 rounded-lg shadow-xl mb-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h5 class="text-lg font-semibold text-gray-400">NPM:</h5>
+          <p class="text-2xl font-medium text-white">{{ npm }}</p>
+        </div>
+        <div>
+          <h5 class="text-lg font-semibold text-gray-400">Name:</h5>
+          <p class="text-2xl font-medium text-white">{{ name }}</p>
+        </div>
+        <div>
+          <h5 class="text-lg font-semibold text-gray-400">Class:</h5>
+          <p class="text-2xl font-medium text-white">{{ class }}</p>
+        </div>
+      </div>
+    </div>
 
-<h5>Name:</h5>
-<p>{{ name }}</p>
+    <!-- Table Section -->
+    {% if not product_entries %}
+    <p class="text-red-500 text-center text-lg mt-6">No products available in the Skin Vault.</p>
+    {% else %}
+    <div class="overflow-x-auto mt-10 shadow-lg rounded-lg">
+      <table class="min-w-full bg-gray-800 text-gray-300 rounded-lg">
+        <thead class="bg-gray-700 text-yellow-400">
+          <tr>
+            <th class="py-3 px-5 text-center">Skin Name</th>
+            <th class="py-3 px-5 text-center">Weapon</th>
+            <th class="py-3 px-5 text-center">Exterior</th>
+            <th class="py-3 px-5 text-center">Category</th>
+            <th class="py-3 px-5 text-center">Quality</th>
+            <th class="py-3 px-5 text-center">Description</th>
+            <th class="py-3 px-5 text-center">Quantity</th>
+            <th class="py-3 px-5 text-center">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product_entry in product_entries %}
+          <tr class="hover:bg-gray-600 transition-all duration-300 ease-in-out">
+            <td class="border-t border-gray-600 py-3 px-5 text-center">{{ product_entry.name }}</td>
+            <td class="border-t border-gray-600 py-3 px-5 text-center">{{ product_entry.weapon }}</td>
+            <td class="border-t border-gray-600 py-3 px-5 text-center">{{ product_entry.exterior }}</td>
+            <td class="border-t border-gray-600 py-3 px-5 text-center">{{ product_entry.category }}</td>
+            <td class="border-t border-gray-600 py-3 px-5 text-center">{{ product_entry.quality }}</td>
+            <td class="border-t border-gray-600 py-3 px-5 text-left">{{ product_entry.description }}</td>
+            <td class="border-t border-gray-600 py-3 px-5 text-center">{{ product_entry.quantity }}</td>
+            <td class="border-t border-gray-600 py-3 px-5 text-center">${{ product_entry.price }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
 
-<h5>Class:</h5>
-<p>{{ class }}</p>
-
-
-{% if not product_entries %}
-<p>Belum ada data produk pada Skin Vault.</p>
-{% else %}
-<table>
-  <tr>
-    <th>Skin Name</th>
-    <th>Weapon</th>
-    <th>Exterior</th>
-    <th>Category</th>
-    <th>Quality</th>
-    <th>Price</th>
-    <th>Description</th>
-    <th>Quantity</th>
-  </tr>
-
-  {% comment %} Berikut cara memperlihatkan data product di bawah baris ini 
-  {% endcomment %} 
-  {% for product_entry in product_entries %}
-  <tr>
-    <td>{{product_entry.name}}</td>
-    <td>{{product_entry.weapon}}</td>
-    <td>{{product_entry.exterior}}</td>
-    <td>{{product_entry.category}}</td>
-    <td>{{product_entry.quality}}</td>
-    <td>{{product_entry.price}}</td>
-    <td>{{product_entry.description}}</td>
-    <td>{{product_entry.quantity}}</td>
-  </tr>
-  {% endfor %}
-</table>
-{% endif %}
-
-<br />
-
-<a href="{% url 'main:create_product_entry' %}">
-  <button>Add New Product Entry</button>
-</a>
+    <!-- Add New Product Button -->
+    <div class="flex justify-center mt-10">
+      <a href="{% url 'main:create_product_entry' %}">
+        <button class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-gray-900 px-8 py-3 rounded-lg font-bold hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 shadow-lg">
+          Add New Product Entry
+        </button>
+      </a>
+    </div>
+  </div>
+</div>
 {% endblock content %}

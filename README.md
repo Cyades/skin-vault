@@ -1,9 +1,94 @@
-# skin-vault
+# Skin Vault 
 **Nama:**   Malvin Scafi<br>
 **NPM:**    2306152430<br>
 **Kelas:**  PBP F<br>
 
 Hasil proyek dapat dilihat pada [link berikut](http://malvin-scafi-skinvault.pbp.cs.ui.ac.id/).
+
+## Tugas 3
+### 1. Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
+Sistem data delivery yang efisien dan aman sangat penting dalam implementasi platform untuk mengirim dan menerima data antara client dan server. Dengan menggunakan format seperti XML atau JSON, data dapat ditransfer secara cepat dan dinamis, memungkinkan platform web yang lebih responsif, misalnya melalui penggunaan teknologi AJAX. Ini memungkinkan konten halaman web diperbarui tanpa harus memuat ulang, meningkatkan pengalaman pengguna (UX) dan performa aplikasi secara keseluruhan.
+
+Data delivery juga berperan dalam menjaga sinkronisasi data antar perangkat dan memastikan bahwa data dapat diakses secara real-time. Dengan sistem yang baik, platform dapat mengolah permintaan data secara efisien, meningkatkan interaktivitas dan responsivitas dari sisi pengguna. Selain itu, keamanan dan integritas data tetap terjaga selama proses transfer, menghindari risiko pencurian data melalui proteksi yang memadai di setiap tahap pertukaran data.
+
+### 2. Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
+Menurut saya, JSON *(JavaScript Object Notation)* cenderung lebih unggul dibandingkan XML *(Extensible Markup Language)* dalam banyak kasus, terutama untuk pertukaran data di aplikasi web. JSON lebih sederhana, ringkas, dan mudah dibaca, baik oleh manusia maupun mesin, karena tidak memerlukan tag pembuka dan penutup yang rumit seperti pada XML. Selain itu, proses parsing JSON lebih cepat di hampir semua bahasa pemrograman, terutama dalam JavaScript, yang merupakan fondasi banyak aplikasi web modern. JSON juga lebih mudah diintegrasikan dengan API dan teknologi web saat ini, sehingga membuatnya lebih populer di kalangan pengembang.
+
+Meskipun XML masih memiliki keunggulan dalam hal struktur dokumen yang lebih kompleks dan fleksibilitas untuk representasi hierarkis, JSON lebih cocok untuk aplikasi yang berorientasi objek dan pertukaran data yang cepat dan efisien. Dukungan yang luas dari teknologi modern seperti RESTful API dan kebutuhan akan format data yang lebih ringan menjadikan JSON sebagai pilihan yang lebih umum di aplikasi web dan mobile. Pada akhirnya, kesederhanaan dan kemudahan penggunaan JSON menjadikannya lebih disukai dibandingkan XML dalam banyak skenario pengembangan modern.
+
+### 3. Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?
+Method `is_valid()` pada form Django digunakan untuk memvalidasi data yang diinputkan oleh pengguna. Fungsinya adalah memastikan bahwa data tersebut memenuhi aturan validasi yang telah ditentukan, seperti tipe data yang benar atau panjang karakter yang sesuai. Jika valid, method ini akan mengembalikan `True` dan mengisi atribut `cleaned_data` dengan data yang telah dibersihkan, siap digunakan dalam aplikasi. Method ini sangat penting untuk mencegah data yang tidak valid masuk ke dalam sistem, menjaga keamanan, dan memastikan bahwa hanya data yang valid diproses lebih lanjut.
+
+### 4. Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+`csrf_token` diperlukan di Django untuk melindungi aplikasi dari serangan CSRF *(Cross-Site Request Forgery)*, di mana penyerang memanfaatkan sesi aktif pengguna untuk mengirim permintaan berbahaya tanpa sepengetahuan pengguna. `csrf_token` adalah token unik yang dimasukkan ke dalam form untuk memverifikasi bahwa permintaan berasal dari halaman yang sah.
+
+Jika form tidak dilindungi oleh `csrf_token`, penyerang bisa mengirim permintaan palsu atas nama pengguna, misalnya mengubah data atau melakukan transaksi tanpa otorisasi. Dengan menambahkan `csrf_token`, aplikasi terlindung dari eksploitasi semacam ini.
+
+### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+1. Membuat `form` input di dalam file `forms.py` untuk menambahkan produk baru di aplikasi main.
+```python
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = ["name", "weapon", "exterior","category","quality","price","description","quantity"]
+```
+Form akan ditampilkan sebagai HTML yang ada pada templates `create_product_entry.html`. Setelah itu HTML tersebut akan diproses dan dikembalikan ke user melewati fungsi `create_product_entry()` yang ada dalam `views.py`
+```python
+def create_product_entry(request):
+    form = ProductForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return redirect('main:show_main')
+
+    context = {'form': form}
+    return render(request, "create_product_entry.html", context)
+```
+2. Menambahkan 4 fungsi baru di `views.py` untuk menampilkan produk yang telah ditambahkan dalam berbagai format dan opsi, yakni:
+```python
+# Show all product in XML
+def show_xml(request):
+    data = Product.objects.all()
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+# Show all product in JSON
+def show_json(request):
+    data = Product.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+# Show all product in XML based on ID
+def show_xml_by_id(request, id):
+    data = Product.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+# Show all product in JSON based on ID
+def show_json_by_id(request, id):
+    data = Product.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+```
+3. Menambahkan URL routing untuk setiap view baru di file `main/urls.py` agar bisa diakses.
+```python
+...
+    path('create-product-entry', create_product_entry, name='create_product_entry'),
+    path('xml/', show_xml, name='show_xml'),
+    path('json/', show_json, name='show_json'),
+    path('xml/<str:id>/', show_xml_by_id, name='show_xml_by_id'),
+    path('json/<str:id>/', show_json_by_id, name='show_json_by_id'),
+...
+```
+4. Melakukan `add - commit - push` ke GitHub dan PWS.
+
+### 6. Mengakses keempat URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman
+1. All Products in XML
+![SS Proof](assets/assignment/GetAllXML.png)
+2. All Products in JSON
+![SS Proof](assets/assignment/GetAllJSON.png)
+3. Product XML By ID
+![SS Proof](assets/assignment/GetXMLByID.png)
+4. Product JSON By ID
+![SS Proof](assets/assignment/GetJSONByID.png)
+
+
 
 ## Tugas 2
 ### 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).

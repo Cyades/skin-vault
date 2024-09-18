@@ -4,10 +4,81 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% block meta %} {% endblock meta %}
+    <title>{% block title %}Skin Vault{% endblock title %}</title>
+
+    <!-- Link Tailwind CSS from a static file or a CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    {% block meta %}{% endblock meta %}
   </head>
 
-  <body>
-    {% block content %} {% endblock content %}
+  <body class="bg-gray-900 text-gray-200 min-h-screen flex flex-col">
+    <nav class="bg-gray-800 p-4 shadow-lg fixed top-0 left-0 w-full z-50">
+      <div class="container mx-auto flex items-center justify-between">
+        <!-- Logo Section -->
+        <div class="flex items-center space-x-4 flex-shrink-0">
+          <img src="{% static 'assets/logo/logo1.png' %}" alt="Skin Vault Logo" class="h-10 w-10">
+          <h1 class="text-3xl text-yellow-500 font-bold">Skin Vault</h1>
+        </div>
+  
+        <!-- Search Bar -->
+        <div class="flex flex-grow justify-center space-x-2">
+          <input type="text" placeholder="Search Skins..." class="bg-gray-700 text-gray-200 px-5 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400" style="width: 700px;">
+          <button class="bg-yellow-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-600 transition">Search</button>
+        </div>
+  
+        <!-- Menu Links -->
+        <ul class="flex space-x-5 text-gray-300">
+          <li><a href="#" class="hover:text-yellow-400 transition">Skins</a></li>
+          <li><a href="#" class="hover:text-yellow-400 transition">Vault</a></li>
+          <li><a href="#" class="hover:text-yellow-400 transition">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+  </body>
+  
+    <!-- Main Content -->
+    <main class="flex-grow">
+      {% block content %} {% endblock content %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-6 text-center text-gray-400 mt-auto">
+      <div class="container mx-auto flex flex-col items-center">
+        <p class="text-sm">&copy; 2024 Skin Vault. All rights reserved.</p>
+
+        <!-- Social Media Icons -->
+        <div class="flex space-x-4 mt-2">
+          <!-- Twitter Icon -->
+          <a href="#" class="hover:text-yellow-400 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
+              <path d="M24 4.557c-.883.392-1.832.656-2.828.775a4.928 4.928 0 002.163-2.724 9.865 9.865 0 01-3.13 1.195 4.918 4.918 0 00-8.384 4.482A13.933 13.933 0 011.671 3.15a4.92 4.92 0 001.524 6.568 4.902 4.902 0 01-2.229-.616v.062a4.918 4.918 0 003.946 4.83 4.902 4.902 0 01-2.224.085 4.918 4.918 0 004.6 3.417A9.867 9.867 0 010 21.54a13.905 13.905 0 007.548 2.212c9.058 0 14.01-7.506 14.01-14.01 0-.213-.005-.426-.015-.637A10.017 10.017 0 0024 4.557z"/>
+            </svg>
+          </a>
+
+          <!-- Instagram Icon -->
+          <a href="#" class="hover:text-yellow-400 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
+              <path d="M12 2.163C6.43 2.163 2.163 6.43 2.163 12S6.43 21.837 12 21.837 21.837 17.57 21.837 12 17.57 2.163 12 2.163zm0 18.4c-4.28 0-7.76-3.48-7.76-7.76s3.48-7.76 7.76-7.76 7.76 3.48 7.76 7.76-3.48 7.76-7.76 7.76z"/>
+              <path d="M15.122 9.215a2.904 2.904 0 11-5.808 0 2.904 2.904 0 015.808 0z"/>
+              <path d="M19.053 7.5c.305 0 .553-.248.553-.553 0-.305-.248-.553-.553-.553-.305 0-.553.248-.553.553 0 .305.248.553.553.553z"/>
+            </svg>
+          </a>
+
+          <!-- WhatsApp Icon -->
+          <a href="#" class="hover:text-yellow-400 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.11.543 4.166 1.573 5.974L.043 24l6.185-1.558A11.948 11.948 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm5.613 17.387c-.275.771-1.399 1.421-1.973 1.512-.531.085-1.192.121-1.918-.117a16.474 16.474 0 01-2.707-1.142c-2.389-1.206-3.94-3.387-4.064-3.544-.126-.156-.968-1.29-.968-2.459 0-1.167.614-1.742.832-1.977.217-.234.483-.293.645-.293.159 0 .32 0 .459.008.145.008.339-.053.531.406.21.484.72 1.692.784 1.816.064.125.106.273.021.429-.085.156-.126.273-.247.429-.125.156-.262.349-.37.469-.125.125-.256.262-.113.509.141.234.627 1.031 1.347 1.672.927.821 1.701 1.081 1.943 1.201.241.12.383.106.526-.065.141-.172.601-.702.762-.94.16-.234.322-.196.537-.118.217.08 1.37.646 1.604.762.234.118.383.177.437.273.053.101.053.763-.222 1.534z"/>
+            </svg>
+          </a>
+
+          <!-- Facebook Icon -->
+          <a href="#" class="hover:text-yellow-400 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
+              <path d="M22.23 0H1.77C.792 0 0 .79 0 1.77v20.46C0 23.208.792 24 1.77 24H12.81v-9.294H9.692v-3.623h3.119V8.413c0-3.1 1.894-4.786 4.658-4.786 1.324 0 2.462.099 2.794.143v3.24h-1.917c-1.504 0-1.795.715-1.795 1.763v2.311h3.59l-.467 3.623h-3.123V24H22.23c.978 0 1.77-.792 1.77-1.77V1.77C24 .792 23.208 0 22.23 0z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
