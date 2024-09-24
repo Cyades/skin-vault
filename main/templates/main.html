@@ -2,25 +2,46 @@
 {% block content %}
 <div class="bg-gray-900 min-h-screen py-8 pt-20"> <!-- Adjust padding here -->
   <div class="container mx-auto px-6">
+    
     <!-- Heading Section -->
     <h1 class="text-5xl font-extrabold text-yellow-400 mb-8 text-center">
       <span class="border-yellow-500 pb-2">Skin Vault</span>
     </h1>
 
-    <!-- NPM, Name, Class Section -->
+    <!-- NPM, Name, Class, Last Login, Logout Section -->
     <div class="bg-gray-800 p-8 rounded-lg shadow-xl mb-10">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8 items-center">
+        <!-- NPM Column -->
         <div>
           <h5 class="text-lg font-semibold text-gray-400">NPM:</h5>
           <p class="text-2xl font-medium text-white">{{ npm }}</p>
         </div>
+
+        <!-- Name Column -->
         <div>
           <h5 class="text-lg font-semibold text-gray-400">Name:</h5>
           <p class="text-2xl font-medium text-white">{{ name }}</p>
         </div>
+
+        <!-- Class Column -->
         <div>
           <h5 class="text-lg font-semibold text-gray-400">Class:</h5>
           <p class="text-2xl font-medium text-white">{{ class }}</p>
+        </div>
+
+        <!-- Last Login Column -->
+        <div class="text-right">
+          <h5 class="text-lg font-semibold text-gray-400">Last login:</h5>
+          <p class="text-white">{{ last_login }}</p>
+        </div>
+
+        <!-- Logout Button Column -->
+        <div class="text-right">
+          <a href="{% url 'main:logout' %}">
+            <button class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-gray-900 px-6 py-2 rounded-lg font-bold hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 shadow-lg">
+              Logout
+            </button>
+          </a>
         </div>
       </div>
     </div>

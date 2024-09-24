@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Product(models.Model):
@@ -12,6 +13,7 @@ class Product(models.Model):
     price = models.IntegerField()
     description = models.TextField()
     quantity = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     @property
     def is_product_available(self):

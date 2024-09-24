@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Login</title>
+{% endblock meta %}
+
+{% block content %}
+<div class="bg-gray-900 min-h-screen py-8 pt-20 flex items-center justify-center">
+  <div class="bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-md">
+    <h1 class="text-3xl font-extrabold text-yellow-400 mb-8 text-center">Login</h1>
+
+    <form method="POST" action="">
+      {% csrf_token %}
+      <div class="mb-6">
+        <div class="mb-4">
+          <label for="username" class="block text-gray-400 mb-2">Username</label>
+          <input type="text" name="username" id="username" class="w-full p-3 bg-gray-700 rounded-lg text-gray-200 focus:outline-none focus:ring-2 focus:ring-yellow-400" placeholder="Enter your username">
+        </div>
+        <div class="mb-6">
+          <label for="password" class="block text-gray-400 mb-2">Password</label>
+          <input type="password" name="password" id="password" class="w-full p-3 bg-gray-700 rounded-lg text-gray-200 focus:outline-none focus:ring-2 focus:ring-yellow-400" placeholder="Enter your password">
+        </div>
+      </div>
+      
+      <!-- Render form non-field errors if any -->
+      {% if form.non_field_errors %}
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative mb-3">
+        <strong class="font-bold">Error:</strong>
+        <span class="block sm:inline">{{ form.non_field_errors }}</span>
+      </div>
+      {% endif %}
+      
+      <!-- Render individual field errors if any -->
+      {% for field in form %}
+      {% if field.errors %}
+      <div class="text-red-500 text-sm mt-2">
+        {{ field.errors.as_text }}
+      </div>
+      {% endif %}
+      {% endfor %}
+      
+      <div class="flex justify-center">
+        <input class="bg-yellow-500 text-gray-900 px-6 py-2 rounded-lg font-bold hover:bg-yellow-600 transition-all duration-300" type="submit" value="Login" />
+      </div>
+    </form>
+
+    <p class="text-gray-400 text-center mt-4">Don't have an account yet?
+      <a href="{% url 'main:register' %}" class="text-yellow-400">Register Now</a>
+    </p>
+  </div>
+</div>
+{% endblock content %}
