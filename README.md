@@ -155,6 +155,7 @@ Bukti akun di sistem admin Django
 ![SS Proof](assets/assignment/DjangoAcc.png)
 
 **C. Menghubungkan model `Product` dengan `User`**
+
 Untuk menghubungkan model `Product` dengan `User`, kita perlu menambahkan atribut baru yang berisi *ForeignKey* ke model `User`, sehingga terbentuk relasi antara kedua model tersebut. Atribut ini dapat dibuat menggunakan `models.ForeignKey()` dengan referensi ke model `User`.
 ```python
 from django.contrib.auth.models import User
