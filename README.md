@@ -93,7 +93,82 @@ Django menawarkan perlindungan seperti parameter `HttpOnly`, `Secure`, dan `Same
 
 
 ### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
-blum :3
+**A. Implementasi registrasi, login, dan logout**
+
+Implementasi fitur registrasi dan login dalam proyek ini dapat dilakukan dengan memanfaatkan form bawaan Django, yaitu *UserCreationForm* untuk registrasi dan *AuthenticationForm* untuk login. Berikut adalah langkah-langkah implementasinya:
+1. Registrasi
+- Views Registrasi: Menggunakan *UserCreationForm* untuk membuat akun baru. Jika form valid, akun disimpan dan pesan sukses ditampilkan. Pengguna akan diarahkan ke halaman login.
+- Template: Halaman HTML `register.html` menampilkan form pendaftaran.
+```python
+def register(request):
+    form = UserCreationForm()
+
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your account has been successfully created!')
+            return redirect('main:login')
+    
+    return render(request, 'register.html', {'form': form})
+```
+2. Login
+- Views Login: Menggunakan *AuthenticationForm* untuk otentikasi. Jika valid, pengguna akan login, dan waktu login terakhir disimpan di *Cookies*.
+- Template: Halaman `login.html` menampilkan form login.
+```python
+def login_user(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            response = HttpResponseRedirect(reverse("main:show_main"))
+            response.set_cookie('last_login', str(datetime.datetime.now()))
+            return response
+
+    return render(request, 'login.html', {'form': AuthenticationForm(request)})
+```
+3. Logout
+- Views Logout: Memanggil fungsi *logout()* untuk keluar, sekaligus menghapus *Cookies* login terakhir.
+```python
+def logout_user(request):
+    logout(request)
+    response = HttpResponseRedirect(reverse('main:login'))
+    response.delete_cookie('last_login')
+    return response
+```
+4. URLs
+Pastikan semua views di atas terdaftar di `urls.py`:
+```python
+urlpatterns = [
+    path('register/', register, name='register'),
+    path('login/', login_user, name='login'),
+    path('logout/', logout_user, name='logout'),
+]
+```
+**B. Dua Akun Dummy Dengan Masing-Masing 3 Product**
+- Akun Wamly
+![SS Proof](assets/assignment/DummyWamly.png)
+- Akun Dani
+![SS Proof](assets/assignment/DummyDani.png)
+Bukti akun di sistem admin Django
+![SS Proof](assets/assignment/DjangoAcc.png)
+
+**C. Menghubungkan model `Product` dengan `User`**
+Untuk menghubungkan model `Product` dengan `User`, kita perlu menambahkan atribut baru yang berisi *ForeignKey* ke model `User`, sehingga terbentuk relasi antara kedua model tersebut. Atribut ini dapat dibuat menggunakan `models.ForeignKey()` dengan referensi ke model `User`.
+```python
+from django.contrib.auth.models import User
+
+class Product(models.Model):
+    ...
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ...
+```
+Setelah menambahkan atribut user, update database untuk menambahkan kolom baru dengan menjalankan perintah berikut:
+```python
+python manage.py makemigrations
+python manage.py migrate
+```
 
 
 ## Tugas 3
