@@ -151,7 +151,7 @@ urlpatterns = [
 ![SS Proof](assets/assignment/DummyWamly.png)
 - Akun Dani
 ![SS Proof](assets/assignment/DummyDani.png)
-Bukti akun di sistem admin Django
+- Bukti akun di sistem admin Django
 ![SS Proof](assets/assignment/DjangoAcc.png)
 
 **C. Menghubungkan model `Product` dengan `User`**
