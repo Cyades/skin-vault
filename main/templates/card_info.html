@@ -1,0 +1,29 @@
+.form-style form input, 
+.form-style form textarea, 
+.form-style form select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 2px solid #2b2b2b; /* Dark gray for CS:GO feel */
+    background-color: #1a1a1a; /* Dark background */
+    color: #f5f5f5; /* Light text */
+    border-radius: 0.375rem;
+}
+
+.form-style form input:focus, 
+.form-style form textarea:focus, 
+.form-style form select:focus {
+    outline: none;
+    border-color: #f0ad4e; /* Yellow to match CS:GO highlights */
+    box-shadow: 0 0 0 3px rgba(240, 173, 78, 0.6); /* Yellow glow */
+}
+
+@keyframes shine {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.animate-shine {
+    background: linear-gradient(120deg, rgba(240, 173, 78, 0.3), rgba(240, 173, 78, 0.1) 50%, rgba(240, 173, 78, 0.3)); /* Yellow shine effect */
+    background-size: 200% 100%;
+    animation: shine 3s infinite;
+}

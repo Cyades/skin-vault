@@ -8,34 +8,18 @@
 
     <!-- Link Tailwind CSS from a static file or a CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    {% block meta %}{% endblock meta %}
+
+    {% block meta %}
+    <meta charset="UTF-8" />
+    <link rel="icon" href="{% static 'image/logo.png' %}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% endblock meta %}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}"/>
   </head>
 
   <body class="bg-gray-900 text-gray-200 min-h-screen flex flex-col">
-    <nav class="bg-gray-800 p-4 shadow-lg fixed top-0 left-0 w-full z-50">
-      <div class="container mx-auto flex items-center justify-between">
-        <!-- Logo Section -->
-        <div class="flex items-center space-x-4 flex-shrink-0">
-          <img src="{% static 'assets/logo/logo1.png' %}" alt="Skin Vault Logo" class="h-10 w-10">
-          <h1 class="text-3xl text-yellow-500 font-bold">Skin Vault</h1>
-        </div>
-  
-        <!-- Search Bar -->
-        <div class="flex flex-grow justify-center space-x-2">
-          <input type="text" placeholder="Search Skins..." class="bg-gray-700 text-gray-200 px-5 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400" style="width: 700px;">
-          <button class="bg-yellow-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-600 transition">Search</button>
-        </div>
-  
-        <!-- Menu Links -->
-        <ul class="flex space-x-5 text-gray-300">
-          <li><a href="#" class="hover:text-yellow-400 transition">Buy</a></li>
-          <li><a href="#" class="hover:text-yellow-400 transition">Sell</a></li>
-          <li><a href="#" class="hover:text-yellow-400 transition">Trade</a></li>
-        </ul>
-      </div>
-    </nav>
-  </body>
-  
+
     <!-- Main Content -->
     <main class="flex-grow">
       {% block content %} {% endblock content %}

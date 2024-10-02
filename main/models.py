@@ -1,6 +1,8 @@
 from django.db import models
 import uuid
 from django.contrib.auth.models import User
+from django.utils import timezone
+
 
 # Create your models here.
 class Product(models.Model):
@@ -14,6 +16,7 @@ class Product(models.Model):
     description = models.TextField()
     quantity = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    time = models.DateField(auto_now_add=True) 
 
     @property
     def is_product_available(self):

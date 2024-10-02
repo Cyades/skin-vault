@@ -5,6 +5,201 @@
 
 Hasil proyek dapat dilihat pada [link berikut](http://malvin-scafi-skinvault.pbp.cs.ui.ac.id/).
 
+## Tugas 5
+### 1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+CSS memiliki aturan prioritas (specificity) dalam menentukan style mana yang akan diterapkan pada elemen HTML jika ada beberapa CSS selector yang diterapkan. Berikut adalah urutan prioritasnya, dari yang tertinggi:
+1. **Inline Style**: Style yang ditulis langsung di elemen HTML memiliki prioritas tertinggi. Contoh: `<p style="color: purple;">Skapi mw bobo</p>`.
+2. **ID Selector**: Selector yang mengacu pada ID elemen HTML, menggunakan tanda `#`. Contoh: `#header { background-color: green; }`.
+3. **Class Selector**: Selector yang mengacu pada kelas tertentu dalam HTML, ditandai dengan `.`. Contoh: `.box { color: blue; }`.
+4. **Tag Selector**: Selector yang langsung mengacu pada tag HTML seperti h1, p, atau div. Contoh: `p { color: red; }`.
+5. **Style Default Browser**: Style bawaan yang ditentukan oleh browser, misalnya ukuran teks default pada tag `<h1>` yang lebih besar dibandingkan teks dalam tag `<p>`.
+
+Selain urutan di atas, ada juga penggunaan flag `!important` yang akan mengesampingkan semua prioritas lainnya. Jika ada lebih dari satu `!important` di elemen yang sama, prioritas ditentukan berdasarkan specificitiy selector.
+
+
+### 2. Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
+
+Responsive design menjadi penting dalam pengembangan aplikasi web karena beberapa alasan utama:
+1. **Beragam Perangkat dan Ukuran Layar**: Pengguna mengakses situs web dari berbagai perangkat seperti ponsel, tablet, laptop, dan desktop dengan ukuran layar yang berbeda. Responsive design memastikan tampilan dan fungsionalitas web tetap optimal di semua ukuran layar.
+2. **Pengalaman Pengguna yang Lebih Baik**: Dengan tampilan yang menyesuaikan layar perangkat, pengguna akan mendapatkan pengalaman yang lebih nyaman. Navigasi yang mudah, konten yang terbaca dengan baik, dan elemen-elemen yang tetap fungsional membuat pengguna lebih betah.
+3. **SEO (Search Engine Optimization)**: Google dan mesin pencari lainnya memprioritaskan situs yang responsif dalam hasil pencarian mobile. Hal ini meningkatkan visibilitas situs dan jumlah pengunjung.
+
+4. **Efisiensi Pengembangan**: Dengan responsive design, pengembang hanya perlu membuat satu situs web yang dapat diakses di berbagai perangkat, sehingga mengurangi biaya dan waktu pengembangan dibandingkan membuat situs terpisah untuk mobile dan desktop.
+
+#### Contoh Aplikasi yang Menerapkan Responsive Design:
+1. **Airbnb**: Situs ini dapat menyesuaikan tampilannya di berbagai perangkat. Pada perangkat mobile, tata letak berubah menjadi lebih vertikal dan elemen-elemen besar untuk memudahkan interaksi, sementara di desktop, layout lebih lebar dan memanfaatkan ukuran layar penuh.
+2. **Spotify Web Player**: Spotify menerapkan responsive design, di mana tampilan pemutar musiknya disesuaikan dengan ukuran layar pengguna, baik di desktop maupun mobile.
+
+#### Contoh Aplikasi yang Belum Menerapkan Responsive Design:
+1. **Website OS**: 
+![SS Proof](assets/assignment/NoResponsiveWeb.png)
+
+### 3. Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+
+**1. Margin**
+Margin adalah ruang di luar elemen, antara elemen tersebut dengan elemen lainnya. Ini mengontrol jarak antara elemen-elemen yang ada di halaman web.
+- Penggunaan: Mengatur jarak antar elemen.
+- Implementasi CSS:
+```CSS
+.contoh {
+    margin-top: 10px;
+    margin-right: 15px;
+    margin-bottom: 20px;
+    margin-left: 25px;
+}
+```
+**2. Border**
+Border adalah garis yang mengelilingi elemen dan terletak di antara padding dan margin. Border memberikan batas visual di sekitar elemen.
+- Penggunaan: Menambah batas atau frame di sekitar elemen.
+-  Implementasi CSS:
+```CSS
+.contoh {
+    border-top: 2px solid red;
+}
+```
+**3. Padding**
+Padding adalah ruang di dalam elemen, antara konten elemen dengan border elemen. Padding mendorong konten menjauh dari tepi elemen.
+- Penggunaan: Mengatur jarak antara konten dan border.
+- Implementasi CSS:
+```CSS
+.contoh {
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+}
+```
+#### Contoh Implementasi Bersamaan:
+```CSS
+.contoh {
+    margin: 20px;           /* Margin luar 20px di semua sisi */
+    padding: 15px;          /* Padding dalam 15px di semua sisi */
+    border: 2px solid blue; /* Border tebal 2px, solid, warna biru */
+}
+```
+Pada contoh ini, elemen akan memiliki:
+- Jarak 20px dari elemen lain di luar elemen tersebut (margin).
+- Garis border berwarna biru setebal 2px.
+- Ruang 15px antara border dan konten di dalam elemen (padding).
+
+#### Visualisasi
+```CSS
++------------------------+
+|        Margin          |
+|  +------------------+  |
+|  |     Border       |  |
+|  |  +------------+  |  |
+|  |  |  Padding   |  |  |
+|  |  |  +------+  |  |  |
+|  |  |  |Content| |  |  |
+|  |  |  +------+  |  |  |
+|  |  +------------+  |  |
+|  +------------------+  |
++------------------------+
+```
+
+### 4. Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+Flexbox dan Grid Layout adalah dua model tata letak (layout) yang sangat berguna dalam CSS untuk mengatur elemen-elemen dalam desain web. Keduanya memiliki kekuatan dan kegunaannya masing-masing.
+
+**1. Flexbox (Flexible Box Layout)**
+
+Flexbox dirancang untuk mengatur elemen dalam satu dimensi, baik secara horizontal maupun vertikal. Ini memungkinkan elemen dalam kontainer fleksibel untuk mengubah ukuran dan posisi mereka secara dinamis untuk mengisi ruang yang tersedia.
+
+Konsep Utama:
+- Kontainer Flex: Elemen induk yang memiliki properti `display: flex`;.
+- Item Flex: Elemen anak dalam kontainer flex.
+- Arah: Dapat diatur untuk mengalir ke arah baris (`row`) atau kolom (`column`).
+
+Kegunaan:
+- Memudahkan perataan elemen dalam satu dimensi.
+- Memungkinkan pengaturan elemen responsif yang lebih baik tanpa banyak media query.
+- Cocok untuk layout sederhana seperti toolbar, daftar, dan kartu.
+
+Contoh Implementasi:
+```CSS
+.container {
+    display: flex;
+    justify-content: space-between; /* Mengatur jarak antara item */
+    align-items: center;            /* Memusatkan item secara vertikal */
+}
+
+.item {
+    flex: 1;                        /* Item akan tumbuh untuk mengisi ruang yang tersedia */
+}
+```
+
+**2. Grid Layout**
+
+Grid Layout adalah sistem tata letak dua dimensi yang memungkinkan pengaturan elemen dalam baris dan kolom. Ini memberikan kontrol yang lebih besar atas tata letak halaman secara keseluruhan.
+
+Konsep Utama:
+- Kontainer Grid: Elemen induk yang memiliki properti `display: grid;`.
+- Item Grid: Elemen anak dalam kontainer grid.
+- Baris dan Kolom: Grid dibagi menjadi baris dan kolom, dan Anda dapat mengatur ukuran setiap baris/kolom secara terpisah.
+
+Kegunaan:
+- Ideal untuk layout yang lebih kompleks, seperti desain halaman penuh, tabel, dan papan informasi.
+- Memungkinkan penempatan item di dalam grid dengan posisi yang sangat fleksibel.
+- Mempermudah pengaturan elemen dengan ukuran yang berbeda dan spasi yang konsisten.
+
+Contoh Implementasi:
+```CSS
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Membagi grid menjadi 3 kolom */
+    grid-gap: 10px;                         /* Spasi antara item grid */
+}
+
+.item {
+    grid-column: span 2;                   /* Item ini akan mengambil 2 kolom */
+    grid-row: span 1;                       /* Item ini akan mengambil 1 baris */
+}
+```
+#### **Perbandingan :**
+- Flexbox lebih baik untuk tata letak satu dimensi (baris atau kolom), sementara Grid Layout cocok untuk tata letak dua dimensi (baris dan kolom).
+- Flexbox lebih mudah digunakan untuk layout yang sederhana dan responsif, sedangkan Grid memberikan kontrol yang lebih besar atas tata letak kompleks.
+
+
+### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+
+1. Mengimplementasi fungsi mengedit dan menghapus produk dengan menambahkan fungsi tersebut pada `views.py`.
+```python
+def edit_product(request, id):
+    # Get product entry berdasarkan id
+    product = Product.objects.get(pk = id)
+
+    # Set product entry sebagai instance dari form
+    form = ProductForm(request.POST or None, instance=product)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+```
+```python
+def delete_product(request, id):
+    # Get product berdasarkan id
+    product = Product.objects.get(pk = id)
+    # Hapus product
+    product.delete()
+    # Kembali ke halaman awal
+    return HttpResponseRedirect(reverse('main:show_main'))
+```
+2. Menambahkan *Navigation Bar* pada aplikasi
+3. Mengkonfigurasi *Static FIles* pada aplikasi untuk menampilkan gambar
+4. Menambahkan *Styles* pada aplikasi dengan menggunakan Tailwind serta External CSS
+    - Menambahkan file `global.css`
+    - Menghubungkan `global.css` dan *script* Tailwind ke `base.html`
+    - Mnambahkan *custom styling* ke dalam `global.css`
+5. Men-*Styling* Halaman `login`, `Register`, dan `Home`
+6. Menambahkan `card_info.html` dan `card_product.html` lalu di *Styling* halaman Create Product Entry serta halaman Edit Product
+7. Melakukan git add, commit, push
+
+
+
 ## Tugas 4
 ### 1. Apa perbedaan antara `HttpResponseRedirect()` dan `redirect()`
 `HttpResponseRedirect()` dan `redirect()` adalah dua cara untuk mengalihkan pengguna ke URL lain dalam aplikasi Django, tetapi ada beberapa perbedaan antara keduanya:

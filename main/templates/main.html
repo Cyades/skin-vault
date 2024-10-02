@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
+
+{% include 'navbar.html' %}
 <div class="bg-gray-900 min-h-screen py-8 pt-20"> <!-- Adjust padding here -->
   <div class="container mx-auto px-6">
     
@@ -48,37 +51,15 @@
 
     <!-- Table Section -->
     {% if not product_entries %}
-    <p class="text-red-500 text-center text-lg mt-6">No products available in the Skin Vault.</p>
+    <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
+        <img src="{% static 'image/sedih-banget.png' %}" alt="Sad face" class="w-32 h-32 mb-4"/>
+        <p class="text-red-500 text-center text-lg mt-6">No products available in the Skin Vault.</p>
+      </div>
     {% else %}
-    <div class="overflow-x-auto mt-10 shadow-lg rounded-lg">
-      <table class="min-w-full bg-gray-800 text-gray-300 rounded-lg">
-        <thead class="bg-gray-700 text-yellow-400">
-          <tr>
-            <th class="py-3 px-5 text-center">Skin Name</th>
-            <th class="py-3 px-5 text-center">Weapon</th>
-            <th class="py-3 px-5 text-center">Exterior</th>
-            <th class="py-3 px-5 text-center">Category</th>
-            <th class="py-3 px-5 text-center">Quality</th>
-            <th class="py-3 px-5 text-center">Description</th>
-            <th class="py-3 px-5 text-center">Quantity</th>
-            <th class="py-3 px-5 text-center">Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for product_entry in product_entries %}
-          <tr class="hover:bg-gray-600 transition-all duration-300 ease-in-out">
-            <td class="border-t border-gray-600 py-3 px-5 text-center">{{ product_entry.name }}</td>
-            <td class="border-t border-gray-600 py-3 px-5 text-center">{{ product_entry.weapon }}</td>
-            <td class="border-t border-gray-600 py-3 px-5 text-center">{{ product_entry.exterior }}</td>
-            <td class="border-t border-gray-600 py-3 px-5 text-center">{{ product_entry.category }}</td>
-            <td class="border-t border-gray-600 py-3 px-5 text-center">{{ product_entry.quality }}</td>
-            <td class="border-t border-gray-600 py-3 px-5 text-left">{{ product_entry.description }}</td>
-            <td class="border-t border-gray-600 py-3 px-5 text-center">{{ product_entry.quantity }}</td>
-            <td class="border-t border-gray-600 py-3 px-5 text-center">${{ product_entry.price }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 w-full">
+      {% for product_entry in product_entries %}
+            {% include 'card_product.html' with product_entry=product_entry %}
+        {% endfor %}
     </div>
     {% endif %}
 
