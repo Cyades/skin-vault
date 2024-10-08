@@ -5,6 +5,98 @@
 
 Hasil proyek dapat dilihat pada [link berikut](http://malvin-scafi-skinvault.pbp.cs.ui.ac.id/).
 
+## Tugas 6
+
+### 1. Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+
+- Interaktivitas: JavaScript memungkinkan pengembang untuk membuat halaman web yang dinamis dan interaktif. Misalnya, efek hover, validasi form di sisi klien, pembaruan data tanpa memuat ulang halaman (melalui AJAX), dan animasi semuanya dapat dilakukan dengan JavaScript.
+- Responsif di sisi klien (Client-Side Processing): Dengan JavaScript, pemrosesan data bisa dilakukan di browser pengguna tanpa harus selalu berkomunikasi dengan server. Ini mempercepat respons waktu aplikasi dan meningkatkan pengalaman pengguna.
+- Kompatibilitas lintas platform: JavaScript dapat berjalan di hampir semua browser web modern, seperti Chrome, Firefox, Safari, dan Edge, tanpa memerlukan pengaturan atau instalasi tambahan. Ini membuat aplikasi web dapat diakses oleh pengguna dari berbagai perangkat dan platform.
+- Ekosistem dan Komunitas yang Kuat: JavaScript memiliki ekosistem library dan framework yang sangat luas seperti React, Angular, dan Vue.js, yang mempercepat proses pengembangan dan memudahkan penerapan fitur canggih. Ditambah, komunitas pengembang JavaScript sangat aktif, sehingga banyak sumber daya dan dukungan yang tersedia.
+- Manajemen Konten Asinkron: JavaScript mendukung pemrograman asinkron melalui AJAX dan Fetch API. Ini memungkinkan aplikasi untuk mengambil atau mengirim data ke server di latar belakang tanpa harus memuat ulang halaman, sehingga pengalaman pengguna lebih lancar, seperti yang terlihat pada single-page applications (SPA).
+- Pengembangan Full-Stack: Dengan hadirnya Node.js, JavaScript dapat digunakan tidak hanya di sisi klien (front-end) tetapi juga di sisi server (back-end). Ini memungkinkan pengembang full-stack untuk menggunakan satu bahasa pemrograman di kedua sisi, yang menyederhanakan alur kerja dan meningkatkan produktivitas.
+- Pengayaan UI/UX: JavaScript memungkinkan pengembang untuk membangun antarmuka pengguna (UI) yang menarik dan intuitif, seperti drag-and-drop, slideshow, popup, dan modal window, yang meningkatkan pengalaman pengguna (UX).
+- Kompatibilitas dengan API: JavaScript mempermudah integrasi dengan berbagai API, baik internal maupun eksternal, sehingga aplikasi web dapat berinteraksi dengan layanan pihak ketiga, seperti pembayaran online, peta, atau integrasi media sosial.
+
+JavaScript menjadi bahasa inti untuk pengembangan web modern karena fleksibilitas dan kapabilitasnya untuk membuat aplikasi yang cepat, dinamis, dan interaktif.
+
+
+### 2. Jelaskan fungsi dari penggunaan `await` ketika kita menggunakan `fetch()`! Apa yang akan terjadi jika kita tidak menggunakan `await`?
+
+Fungsi `await` dalam penggunaan `fetch()` di JavaScript adalah untuk menunggu hingga promise yang dihasilkan oleh `fetch()` selesai sebelum melanjutkan ke baris kode berikutnya. `fetch()` adalah operasi asynchronous yang mengembalikan promise, dan `await` memungkinkan kita untuk menulis kode seolah-olah itu synchronous (berjalan secara berurutan), meskipun sebenarnya tetap asynchronous di balik layar.
+
+**Fungsi `await` dalam `fetch()`**
+- `fetch()` sendiri mengembalikan promise, yang merepresentasikan proses request yang belum selesai.
+- Dengan `await`, kita memberitahu program untuk menunggu sampai promise selesai dan hasilnya (response) tersedia.
+- Setelah request selesai, `await` akan memberikan hasil dari promise tersebut, yang biasanya berupa object response.
+- Tanpa `await`, kode akan terus berjalan, bahkan sebelum request selesai, sehingga kita mungkin mencoba menggunakan response yang belum tersedia.
+- Contoh penggunaan `await` dengan fetch():
+```javascript
+async function getData() {
+  const response = await fetch('https://api.example.com/data');
+  const data = await response.json();
+  console.log(data);
+}
+```
+
+**Apa yang terjadi jika tidak menggunakan `await`?**
+
+Jika tidak menggunakan `await`, kode akan berlanjut tanpa menunggu promise selesai. Hasil dari `fetch()` akan tetap berupa promise, bukan nilai dari response-nya. Jadi, kita tidak bisa langsung menggunakan data yang dikembalikan oleh server.
+
+- Contoh tanpa `await`:
+```javascript
+function getData() {
+  const response = fetch('https://api.example.com/data');
+  console.log(response);  // Ini hanya mencetak promise, bukan data dari response
+}
+```
+Di sini, alih-alih menampilkan data yang kita harapkan, `console.log()` akan menampilkan objek promise, karena proses fetch belum selesai pada saat log dipanggil.
+
+Kesimpulan:
+- Dengan `await`: Program akan menunggu hingga request selesai dan bisa menggunakan hasilnya langsung.
+- Tanpa `await`: Program akan terus berjalan tanpa menunggu, sehingga kita mungkin hanya mendapatkan promise, bukan hasil dari request-nya.
+
+### 3. Mengapa kita perlu menggunakan decorator csrf_exempt pada view yang akan digunakan untuk AJAX POST?
+
+Kita perlu menggunakan decorator `csrf_exempt` pada view yang akan digunakan untuk AJAX POST dalam kasus tertentu karena Django secara default memiliki perlindungan Cross-Site Request Forgery (CSRF) untuk semua request POST. CSRF merupakan serangan di mana penyerang bisa membuat pengguna yang sudah login di suatu website melakukan aksi tanpa sepengetahuannya melalui website lain.
+
+Namun, ketika kita menggunakan AJAX request dari frontend (misalnya dengan JavaScript) dan ingin mengirimkan data melalui POST, CSRF token harus dikirimkan bersamaan dengan request. Jika tidak, Django akan menolak request tersebut karena tidak ada CSRF token yang valid.
+
+Jika kita tidak ingin memvalidasi CSRF token untuk request tersebut, kita bisa menggunakan decorator `@csrf_exempt` untuk mengecualikan view tersebut dari perlindungan CSRF.
+
+Namun, perlu berhati-hati dalam menggunakannya. Menggunakan `@csrf_exempt` bisa membuka celah keamanan jika request tersebut rentan terhadap serangan CSRF. Sebaiknya, hanya digunakan ketika kita yakin bahwa request tersebut tidak memerlukan perlindungan CSRF, misalnya dalam kasus API endpoint yang tidak memerlukan autentikasi pengguna atau sudah dilindungi dengan cara lain.
+
+**Contoh:**
+```python
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+
+@csrf_exempt
+def my_ajax_view(request):
+    if request.method == 'POST':
+        # Handle the AJAX POST request
+        data = {'message': 'Success'}
+        return JsonResponse(data)
+```
+Namun, solusi yang lebih baik adalah memastikan bahwa CSRF token dikirimkan dalam setiap request POST, bahkan dalam AJAX request, sehingga kita tetap memanfaatkan lapisan keamanan yang disediakan Django.
+
+### 4. Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?
+
+- Keamanan: Melakukan pembersihan data di backend membantu melindungi sistem dari serangan yang berbahaya, seperti SQL injection atau XSS (Cross-Site Scripting). Jika pembersihan hanya dilakukan di frontend, penyerang yang terampil bisa saja memanipulasi data sebelum dikirim ke backend dengan melewati validasi frontend.
+- Keandalan Data: Pengguna mungkin menonaktifkan atau memanipulasi JavaScript di browser mereka, sehingga pembersihan yang dilakukan di frontend tidak berjalan. Dengan pembersihan di backend, kamu memastikan bahwa setiap input yang diterima sudah dibersihkan dengan benar tanpa bergantung pada client-side validation.
+- Konsistensi: Backend adalah titik sentral di mana semua data diproses dan disimpan, sehingga pembersihan di backend memastikan konsistensi data untuk semua input, baik yang berasal dari web, mobile apps, atau API lain.
+- Kontrol Penuh: Backend memiliki akses penuh ke seluruh data dan logika pemrosesan, sehingga bisa memastikan validasi lebih kompleks dan memutuskan apakah input benar-benar sesuai dengan standar yang diharapkan sebelum data disimpan atau diproses lebih lanjut.
+
+Melakukan pembersihan di kedua tempat, baik frontend maupun backend, memberikan perlindungan ganda untuk aplikasi.
+
+
+### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+
+tar dl aj mending bobok dl
+
+
+
+
 ## Tugas 5
 ### 1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
 CSS memiliki aturan prioritas (specificity) dalam menentukan style mana yang akan diterapkan pada elemen HTML jika ada beberapa CSS selector yang diterapkan. Berikut adalah urutan prioritasnya, dari yang tertinggi:
@@ -32,6 +124,7 @@ Responsive design menjadi penting dalam pengembangan aplikasi web karena beberap
 
 #### Contoh Aplikasi yang Belum Menerapkan Responsive Design:
 1. **Website OS**: 
+
 ![SS Proof](assets/assignment/NoResponsiveWeb.png)
 
 ### 3. Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
