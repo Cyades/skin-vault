@@ -133,7 +133,7 @@ def add_product_entry_ajax(request):
     price = strip_tags(request.POST.get("price"))
     description = strip_tags(request.POST.get("description"))
     quantity = strip_tags(request.POST.get("quantity"))
-    user = strip_tags(request.user)
+    user = (request.user)
 
     new_product = Product(
         name = name,

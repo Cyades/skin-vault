@@ -92,7 +92,11 @@ Melakukan pembersihan di kedua tempat, baik frontend maupun backend, memberikan 
 
 ### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
 
-tar dl aj mending bobok dl
+Saya menambahkan fungsi `create_product_ajax()` dalam `views.py` sebagai versi AJAX dari `create_product()` sebelumnya. Fungsi `get_json()` dan `get_xml()` telah dimodifikasi untuk mengembalikan produk yang sesuai dengan user terautentikasi, memungkinkan keduanya digunakan untuk GET AJAX. Kemudian, saya menghubungkan view baru ini dengan menambahkan path pada `urls.py`.
+
+Template `main.html` telah dimodifikasi agar card sekarang ditampilkan secara asinkron dengan AJAX. Selain itu, saya menambahkan modal untuk penambahan produk secara asinkron menggunakan AJAX melalui endpoint yang baru ditentukan. Modal ini memiliki event listener untuk menjalankan AJAX saat di-submit, melakukan POST ke server, dan mendapatkan daftar produk terbaru.
+
+Untuk memastikan keamanan aplikasi dan mencegah XSS, saya menggunakan `strip_tags()` di backend dan `DOMPurify.sanitize()` di frontend. Kedua fungsi ini membersihkan input user dari tag HTML yang tidak diinginkan.
 
 
 
