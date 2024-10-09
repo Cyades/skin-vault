@@ -9,14 +9,14 @@ Hasil proyek dapat dilihat pada [link berikut](http://malvin-scafi-skinvault.pbp
 
 ### 1. Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
 
-- Interaktivitas: JavaScript memungkinkan pengembang untuk membuat halaman web yang dinamis dan interaktif. Misalnya, efek hover, validasi form di sisi klien, pembaruan data tanpa memuat ulang halaman (melalui AJAX), dan animasi semuanya dapat dilakukan dengan JavaScript.
-- Responsif di sisi klien (Client-Side Processing): Dengan JavaScript, pemrosesan data bisa dilakukan di browser pengguna tanpa harus selalu berkomunikasi dengan server. Ini mempercepat respons waktu aplikasi dan meningkatkan pengalaman pengguna.
-- Kompatibilitas lintas platform: JavaScript dapat berjalan di hampir semua browser web modern, seperti Chrome, Firefox, Safari, dan Edge, tanpa memerlukan pengaturan atau instalasi tambahan. Ini membuat aplikasi web dapat diakses oleh pengguna dari berbagai perangkat dan platform.
-- Ekosistem dan Komunitas yang Kuat: JavaScript memiliki ekosistem library dan framework yang sangat luas seperti React, Angular, dan Vue.js, yang mempercepat proses pengembangan dan memudahkan penerapan fitur canggih. Ditambah, komunitas pengembang JavaScript sangat aktif, sehingga banyak sumber daya dan dukungan yang tersedia.
-- Manajemen Konten Asinkron: JavaScript mendukung pemrograman asinkron melalui AJAX dan Fetch API. Ini memungkinkan aplikasi untuk mengambil atau mengirim data ke server di latar belakang tanpa harus memuat ulang halaman, sehingga pengalaman pengguna lebih lancar, seperti yang terlihat pada single-page applications (SPA).
-- Pengembangan Full-Stack: Dengan hadirnya Node.js, JavaScript dapat digunakan tidak hanya di sisi klien (front-end) tetapi juga di sisi server (back-end). Ini memungkinkan pengembang full-stack untuk menggunakan satu bahasa pemrograman di kedua sisi, yang menyederhanakan alur kerja dan meningkatkan produktivitas.
-- Pengayaan UI/UX: JavaScript memungkinkan pengembang untuk membangun antarmuka pengguna (UI) yang menarik dan intuitif, seperti drag-and-drop, slideshow, popup, dan modal window, yang meningkatkan pengalaman pengguna (UX).
-- Kompatibilitas dengan API: JavaScript mempermudah integrasi dengan berbagai API, baik internal maupun eksternal, sehingga aplikasi web dapat berinteraksi dengan layanan pihak ketiga, seperti pembayaran online, peta, atau integrasi media sosial.
+- **Interaktivitas**: JavaScript memungkinkan pengembang untuk membuat halaman web yang dinamis dan interaktif. Misalnya, efek hover, validasi form di sisi klien, pembaruan data tanpa memuat ulang halaman (melalui AJAX), dan animasi semuanya dapat dilakukan dengan JavaScript.
+- **Responsif di sisi klien (Client-Side Processing)**: Dengan JavaScript, pemrosesan data bisa dilakukan di browser pengguna tanpa harus selalu berkomunikasi dengan server. Ini mempercepat respons waktu aplikasi dan meningkatkan pengalaman pengguna.
+- **Kompatibilitas lintas platform**: JavaScript dapat berjalan di hampir semua browser web modern, seperti Chrome, Firefox, Safari, dan Edge, tanpa memerlukan pengaturan atau instalasi tambahan. Ini membuat aplikasi web dapat diakses oleh pengguna dari berbagai perangkat dan platform.
+- **Ekosistem dan Komunitas yang Kuat**: JavaScript memiliki ekosistem library dan framework yang sangat luas seperti React, Angular, dan Vue.js, yang mempercepat proses pengembangan dan memudahkan penerapan fitur canggih. Ditambah, komunitas pengembang JavaScript sangat aktif, sehingga banyak sumber daya dan dukungan yang tersedia.
+- **Manajemen Konten Asinkron**: JavaScript mendukung pemrograman asinkron melalui AJAX dan Fetch API. Ini memungkinkan aplikasi untuk mengambil atau mengirim data ke server di latar belakang tanpa harus memuat ulang halaman, sehingga pengalaman pengguna lebih lancar, seperti yang terlihat pada single-page applications (SPA).
+- **Pengembangan Full-Stack**: Dengan hadirnya Node.js, JavaScript dapat digunakan tidak hanya di sisi klien (front-end) tetapi juga di sisi server (back-end). Ini memungkinkan pengembang full-stack untuk menggunakan satu bahasa pemrograman di kedua sisi, yang menyederhanakan alur kerja dan meningkatkan produktivitas.
+- **Pengayaan UI/UX**: JavaScript memungkinkan pengembang untuk membangun antarmuka pengguna (UI) yang menarik dan intuitif, seperti drag-and-drop, slideshow, popup, dan modal window, yang meningkatkan pengalaman pengguna (UX).
+- **Kompatibilitas dengan API**: JavaScript mempermudah integrasi dengan berbagai API, baik internal maupun eksternal, sehingga aplikasi web dapat berinteraksi dengan layanan pihak ketiga, seperti pembayaran online, peta, atau integrasi media sosial.
 
 JavaScript menjadi bahasa inti untuk pengembangan web modern karena fleksibilitas dan kapabilitasnya untuk membuat aplikasi yang cepat, dinamis, dan interaktif.
 
@@ -53,8 +53,8 @@ function getData() {
 Di sini, alih-alih menampilkan data yang kita harapkan, `console.log()` akan menampilkan objek promise, karena proses fetch belum selesai pada saat log dipanggil.
 
 Kesimpulan:
-- Dengan `await`: Program akan menunggu hingga request selesai dan bisa menggunakan hasilnya langsung.
-- Tanpa `await`: Program akan terus berjalan tanpa menunggu, sehingga kita mungkin hanya mendapatkan promise, bukan hasil dari request-nya.
+- **Dengan `await`**: Program akan menunggu hingga request selesai dan bisa menggunakan hasilnya langsung.
+- **Tanpa `await`**: Program akan terus berjalan tanpa menunggu, sehingga kita mungkin hanya mendapatkan promise, bukan hasil dari request-nya.
 
 ### 3. Mengapa kita perlu menggunakan decorator csrf_exempt pada view yang akan digunakan untuk AJAX POST?
 
@@ -82,17 +82,17 @@ Namun, solusi yang lebih baik adalah memastikan bahwa CSRF token dikirimkan dala
 
 ### 4. Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?
 
-- Keamanan: Melakukan pembersihan data di backend membantu melindungi sistem dari serangan yang berbahaya, seperti SQL injection atau XSS (Cross-Site Scripting). Jika pembersihan hanya dilakukan di frontend, penyerang yang terampil bisa saja memanipulasi data sebelum dikirim ke backend dengan melewati validasi frontend.
-- Keandalan Data: Pengguna mungkin menonaktifkan atau memanipulasi JavaScript di browser mereka, sehingga pembersihan yang dilakukan di frontend tidak berjalan. Dengan pembersihan di backend, kamu memastikan bahwa setiap input yang diterima sudah dibersihkan dengan benar tanpa bergantung pada client-side validation.
-- Konsistensi: Backend adalah titik sentral di mana semua data diproses dan disimpan, sehingga pembersihan di backend memastikan konsistensi data untuk semua input, baik yang berasal dari web, mobile apps, atau API lain.
-- Kontrol Penuh: Backend memiliki akses penuh ke seluruh data dan logika pemrosesan, sehingga bisa memastikan validasi lebih kompleks dan memutuskan apakah input benar-benar sesuai dengan standar yang diharapkan sebelum data disimpan atau diproses lebih lanjut.
+- **Keamanan**: Melakukan pembersihan data di backend membantu melindungi sistem dari serangan yang berbahaya, seperti SQL injection atau XSS (Cross-Site Scripting). Jika pembersihan hanya dilakukan di frontend, penyerang yang terampil bisa saja memanipulasi data sebelum dikirim ke backend dengan melewati validasi frontend.
+- **Keandalan Data**: Pengguna mungkin menonaktifkan atau memanipulasi JavaScript di browser mereka, sehingga pembersihan yang dilakukan di frontend tidak berjalan. Dengan pembersihan di backend, kamu memastikan bahwa setiap input yang diterima sudah dibersihkan dengan benar tanpa bergantung pada client-side validation.
+- **Konsistensi**: Backend adalah titik sentral di mana semua data diproses dan disimpan, sehingga pembersihan di backend memastikan konsistensi data untuk semua input, baik yang berasal dari web, mobile apps, atau API lain.
+- **Kontrol Penuh**: Backend memiliki akses penuh ke seluruh data dan logika pemrosesan, sehingga bisa memastikan validasi lebih kompleks dan memutuskan apakah input benar-benar sesuai dengan standar yang diharapkan sebelum data disimpan atau diproses lebih lanjut.
 
 Melakukan pembersihan di kedua tempat, baik frontend maupun backend, memberikan perlindungan ganda untuk aplikasi.
 
 
 ### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
 
-Saya menambahkan fungsi `create_product_ajax()` dalam `views.py` sebagai versi AJAX dari `create_product()` sebelumnya. Fungsi `get_json()` dan `get_xml()` telah dimodifikasi untuk mengembalikan produk yang sesuai dengan user terautentikasi, memungkinkan keduanya digunakan untuk GET AJAX. Kemudian, saya menghubungkan view baru ini dengan menambahkan path pada `urls.py`.
+Saya menambahkan fungsi `add_product_entry_ajax()` dalam `views.py` sebagai versi AJAX dari `create_product_entry()` sebelumnya. Fungsi `get_json()` dan `get_xml()` telah dimodifikasi untuk mengembalikan produk yang sesuai dengan user terautentikasi, memungkinkan keduanya digunakan untuk GET AJAX. Kemudian, saya menghubungkan view baru ini dengan menambahkan path pada `urls.py`.
 
 Template `main.html` telah dimodifikasi agar card sekarang ditampilkan secara asinkron dengan AJAX. Selain itu, saya menambahkan modal untuk penambahan produk secara asinkron menggunakan AJAX melalui endpoint yang baru ditentukan. Modal ini memiliki event listener untuk menjalankan AJAX saat di-submit, melakukan POST ke server, dan mendapatkan daftar produk terbaru.
 
