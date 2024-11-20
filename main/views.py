@@ -157,7 +157,7 @@ def create_skin_flutter(request):
     if request.method == 'POST':
 
         data = json.loads(request.body)
-        new_skin = SkinEntry.objects.create(
+        new_skin = Product.objects.create(
             user=request.user,
             name=data["name"],
             quantity=int(data["quantity"]),
