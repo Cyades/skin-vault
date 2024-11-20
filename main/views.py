@@ -154,18 +154,22 @@ def add_product_entry_ajax(request):
 
 @csrf_exempt
 def create_skin_flutter(request):
-    if request.method == 'POST':
-
+    if request.method == "POST":
         data = json.loads(request.body)
-        new_skin = Product.objects.create(
-            user=request.user,
-            name=data["name"],
-            quantity=int(data["quantity"]),
-            quality=data["quality"],
-        )
-
-        new_skin.save()
-
-        return JsonResponse({"status": "success"}, status=200)
-    else:
-        return JsonResponse({"status": "error"}, status=401)
+        try:
+            new_skin = Product.objects.create(
+                name=data['name'],
+                weapon=data['weapon'],
+                exterior=data['exterior'],
+                category=data['category'],
+                quality=data['quality'],
+                price=data['price'],
+                description=data['description'],
+                quantity=data['quantity'],
+                user_id=data['user'],
+                time=data['time'],
+            )
+            return JsonResponse({"status": "success"}, status=200)
+        except Exception as e:
+            return JsonResponse({"status": "error", "message": str(e)}, status=500)
+    return JsonResponse({"status": "error", "message": "Invalid method"}, status=405)
